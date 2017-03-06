@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <display.c>
+#include <scenes.c>
 int getChoice(int maxVal);
 void showScene(int nextSceneVal);
 
@@ -11,6 +12,9 @@ int main(void)
 	int previousSceneVal = 0;//So it doesn't have to redisplay every cycle
 	int currentSceneVal = 1;
 	int gameIsOver = 0;//turn to 1 when game finishes, exiting "while" loop
+	
+	
+	
 	while(!gameIsOver)
 	{
 		if (previousSceneVal != currentSceneVal)
@@ -23,16 +27,22 @@ int main(void)
 		
 	}
 }
-void showScene(int nextSceneVal)
+void showScene(int nextSceneVal) //currently, one scene holds one box of dialogue
 {
-	if (nextSceneVal == 1)
+	char text[100] = getDialogue(nextSceneVal);
+	int bgc = getBGC(nextSceneVal);
+	
+	colorScreen(bgc);
+	drawDialogueBox();
+	displayDialogue(text);
+	/*if (nextSceneVal == 1) 
 	{
 		//volatile int * SW_val = (int *) 0xff200040;
 		char text[50] = "Hi what's up";
 		colorScreen(0xF000);
 		drawDialogueBox();
 		displayDialogue(text);
-	}
+	}*/
 }
 int getChoice(int maxVal)
 {

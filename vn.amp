@@ -2,7 +2,7 @@
     <architecture>Nios II</architecture>
     <system>
         <sample_system_title>DE0-CV Computer</sample_system_title>
-        <cable>USB-Blaster [USB-0]</cable>
+        <cable>null</cable>
         <processor>Nios2</processor>
         <reset_processor_during_load>false</reset_processor_during_load>
         <terminal>JTAG_UART</terminal>
@@ -11,6 +11,8 @@
         <type>C Program</type>
         <source_files>
             <source_file filepath="true">main.c</source_file>
+            <source_file filepath="true">scenes.c</source_file>
+            <source_file filepath="true">display.c</source_file>
         </source_files>
         <options>
             <compiler_flags>-g -O1 -ffunction-sections -fverbose-asm -fno-inline -mno-cache-volatile</compiler_flags>
