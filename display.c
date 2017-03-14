@@ -9,8 +9,8 @@ int sTrueHeight=240;
 void drawDialogueBox()
 {
 	short color = 0xF00F; //Can change
-	int startRow=sHeight-50;
-	int endRow=sHeight-5;
+	int startRow=sHeight-100;
+	int endRow=sHeight-50;
 	int startCol=5;
 	int endCol=sWidth-5;
 	colorArea(startRow,endRow,startCol,endCol,color);
@@ -53,8 +53,9 @@ void clearScreen()
 }*/
 void displayDialogue(char * text_ptr)
 {
+	clearDialogue();
 	int startRow = 30;
-	int startCol = 30;
+	int startCol = 5;
 	int offset = (startRow << 7) + startCol;
   	volatile char * character_buffer = (char *) FPGA_CHAR_BASE;	// VGA character buffer
 
@@ -66,6 +67,23 @@ void displayDialogue(char * text_ptr)
 		++text_ptr;
 		++offset;
 	}
+}
+void clearDialogue()
+{
+	int startRow = 30;
+	int startCol = 30;
+	int offset = (startRow << 7) + startCol;
+  	volatile char * character_buffer = (char *) FPGA_CHAR_BASE;	// VGA character buffer
+
+	/* assume that the text string fits on one line */
+	//offset = (y << 7) + x;
+	for (int i=0;i<50;i++)
+	{
+		*(character_buffer + offset) = ' ';	// write to the character buffer
+		//++text_ptr;
+		++offset;
+	}
+	
 }
 //void displayChar(int row, int col, char c)
 //{

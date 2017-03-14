@@ -8,7 +8,8 @@ int getBGC(int sceneNum)
 	{
 		case 0:
 			return 0x0000;
-		
+		case 1:
+			return 0x0000;
 		default:
 			return 0xF000;
 	}
@@ -20,7 +21,7 @@ char * getDialogue(int sceneNum)
 		case 0:
 			return "Default dialogue";
 		case 1:
-			return "Hi what's up";
+			return "GAME OVER";
 		case 2:
 			return "Are all humans good?";
 		case 3:
@@ -39,7 +40,14 @@ char * getDialogue(int sceneNum)
 			return "Then you are a God. Am I correct?";
 		case 10:
 			return "Then is the person themself the person who should judge themself?";
-		
+		case 11:
+			return "I'm an athiest. You're lying. Good-bye.";
+		case 12:
+			return "Then you have no right to be the only person to judge other people."; //improve this one
+		case 13:
+			return "Neato, so they judge themselves. Bye.";//improve
+		case 14:
+			return "Then is the person to judge them god?";
 		default:
 			printf("Dialogue error");
 	}
@@ -51,13 +59,33 @@ char * getSceneName(int sceneNum)
 		case 0:
 			return "default";
 		case 1:
-			return "first";
+			return "gameOver";
 		case 2:
 			return "testQuestion";
 		case 3:
 			return "hitler";
 		case 4:
 			return "anyGood";
+		case 5:
+			return "noWantToTalk";
+		case 6:
+			return "liar";
+		case 7:
+			return "doYouDecide";
+		case 8:
+			return "downer";
+		case 9:
+			return "areYouGod";
+		case 10:
+			return "doTheyJudgeThemselves";
+		case 11:
+			return "athiest";
+		case 12:
+			return "noRightToJudge";
+		case 13:
+			return "theyJudgeThemselves";
+		case 14:
+			return "doesGodJudgeThem";
 		default:
 			printf("Scene name error");
 	}
@@ -76,14 +104,7 @@ int getNextScene(int sceneNum, int yes)
 				return 1;
 			}
 		case 1:
-			if (yes)
-			{
-				return 0;
-			}
-			else
-			{
-				return 0;
-			}
+			return 1;
 		case 2:
 			if (yes)
 			{
@@ -112,6 +133,45 @@ int getNextScene(int sceneNum, int yes)
 				return 8;
 			}
 		case 5:
+			return 1;
+		case 6:
+			return 1;
+		case 7:
+			if (yes)
+			{
+				return 9;
+			}
+			else
+			{
+				return 10;
+			}
+		case 8:
+			return 1;
+		case 9:
+			if (yes)
+			{
+				return 11;
+			}
+			else
+			{
+				return 12;
+			}
+		case 10:
+			if (yes)
+			{
+				return 13;
+			}
+			else
+			{
+				return 14;
+			}
+		case 11:
+			return 1;
+		case 12:
+			return 1;
+		case 13:
+			return 1;
+		case 14:
 			return 0;
 	}
 }
