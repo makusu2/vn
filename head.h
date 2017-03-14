@@ -13,6 +13,5 @@ int getBGC(int sceneNum);
 char * getDialogue(int sceneNum);
 char * getSceneName(int sceneNum);
 int getNextScene(int sceneNum, int yes);
-
 void pause(volatile int val);
 void clearDialogue();

@@ -1,8 +1,6 @@
 #include "address_map_nios2.h"
 #include <stdio.h>
 #include <math.h>
-//#include <display.c>
-//#include <scenes.c>
 #include "head.h"
 
 int main(void)
@@ -11,12 +9,8 @@ int main(void)
 	int previousSceneVal = 0;//So it doesn't have to redisplay every cycle
 	int currentSceneVal = 2;
 	int gameIsOver = 0;//turn to 1 when game finishes, exiting "while" loop
-	
-	
-	
 	while(!gameIsOver)
 	{
-		printf("1\n");
 		if (previousSceneVal != currentSceneVal)
 		{
 			clearScreen();
@@ -26,10 +20,6 @@ int main(void)
 			volatile int time = 1000000;
 			pause(time);
 		}
-		printf("2\n");
-		printf("SceneVal: %d\n",currentSceneVal);
-		//maybe have a box of options to choose from? With keyboard input, perhaps?
-		
 	}
 }
 int showScene(int nextSceneVal) //currently, one scene holds one box of dialogue
@@ -40,16 +30,11 @@ int showScene(int nextSceneVal) //currently, one scene holds one box of dialogue
 	colorScreen(bgc);
 	drawDialogueBox();
 	displayDialogue(text);
-	//displayQuestion(question);//TODO
-	return getChoice(1);//Can I return the next scene number instead?
+	return getChoice(1);
 }
 int getChoice(int maxVal)
 {
-	//TODO add some way to get the user's choice
-	//should just be yes or no
-	return getYesOrNo();//TODO
-	
-	//return -1;
+	return getYesOrNo();
 }
 int getYesOrNo()
 {
@@ -57,6 +42,13 @@ int getYesOrNo()
 	volatile int * buttonPtr = (int *) KEY_BASE;
 	while (1)
 	{
+		switch (*buttonPtr)
+		{
+			case 8: return 1;
+			case 4: return 0;
+			default: continue;
+		}
+		/*
 		int buttonVal = *buttonPtr;
 		if (buttonVal == 8)
 		{
@@ -66,6 +58,7 @@ int getYesOrNo()
 		{
 			return 0;
 		}
+		*/
 	}
 }
 void pause(volatile int val)

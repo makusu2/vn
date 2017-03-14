@@ -40,17 +40,6 @@ void clearScreen()
 {
 	colorArea(0,sTrueHeight,0,sTrueWidth,0x0000);
 }
-/*void displayDialogue(char * text_ptr)
-{
-	int startCol=10;
-	int startRow=sHeight-55;
-	while (*text_ptr)
-	{
-		drawCharacter(startCol,startRow,*text_ptr);
-		startCol++;
-		text_ptr++;
-	}
-}*/
 void displayDialogue(char * text_ptr)
 {
 	clearDialogue();
@@ -59,8 +48,6 @@ void displayDialogue(char * text_ptr)
 	int offset = (startRow << 7) + startCol;
   	volatile char * character_buffer = (char *) FPGA_CHAR_BASE;	// VGA character buffer
 
-	/* assume that the text string fits on one line */
-	//offset = (y << 7) + x;
 	while ( *(text_ptr) )
 	{
 		*(character_buffer + offset) = *(text_ptr);	// write to the character buffer
@@ -71,22 +58,14 @@ void displayDialogue(char * text_ptr)
 void clearDialogue()
 {
 	int startRow = 30;
-	int startCol = 30;
+	int startCol = 5;
 	int offset = (startRow << 7) + startCol;
   	volatile char * character_buffer = (char *) FPGA_CHAR_BASE;	// VGA character buffer
 
-	/* assume that the text string fits on one line */
-	//offset = (y << 7) + x;
-	for (int i=0;i<50;i++)
+	for (int i=0;i<100;i++)
 	{
 		*(character_buffer + offset) = ' ';	// write to the character buffer
-		//++text_ptr;
 		++offset;
 	}
 	
 }
-//void displayChar(int row, int col, char c)
-//{
-//	volatile char * character_buffer = (char *)(0x09000000+(col<<9)+row);
-//	*character_buffer=myChar;
-//}
