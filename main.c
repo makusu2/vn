@@ -16,12 +16,18 @@ int main(void)
 	
 	while(!gameIsOver)
 	{
+		printf("1\n");
 		if (previousSceneVal != currentSceneVal)
 		{
 			clearScreen();
-			showScene(currentSceneVal);
+			int choice = showScene(currentSceneVal);
 			previousSceneVal=currentSceneVal;
+			currentSceneVal = getNextScene(previousSceneVal,choice);
+			volatile int time = 1000000;
+			pause(time);
 		}
+		printf("2\n");
+		printf("SceneVal: %d\n",currentSceneVal);
 		//maybe have a box of options to choose from? With keyboard input, perhaps?
 		
 	}
@@ -60,5 +66,12 @@ int getYesOrNo()
 		{
 			return 0;
 		}
+	}
+}
+void pause(volatile int val)
+{
+	for (int i=0;i<val;i++)
+	{
+		
 	}
 }
