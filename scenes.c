@@ -1,8 +1,8 @@
-void getBGC(int sceneNum);
-void getDialogue(int sceneNum);
-void getSceneName(int sceneNum);
+#include <stdio.h>
 
-void getBGC(int sceneNum)
+#include "head.h"
+
+int getBGC(int sceneNum)
 {
 	switch (sceneNum)
 	{
@@ -13,7 +13,7 @@ void getBGC(int sceneNum)
 			return 0xF000;
 	}
 }
-void getDialogue(int sceneNum)
+char * getDialogue(int sceneNum)
 {
 	switch (sceneNum)
 	{
@@ -34,17 +34,17 @@ void getDialogue(int sceneNum)
 		case 7:
 			return "Then someone must be able to choose who is good and who is not. Are you that person?";
 		case 8:
-			return "Wow, you're kind of a downer. Bye."
+			return "Wow, you're kind of a downer. Bye.";
 		case 9:
 			return "Then you are a God. Am I correct?";
 		case 10:
-			return: "Then is the person themself the person who should judge themself?";
+			return "Then is the person themself the person who should judge themself?";
 		
 		default:
 			printf("Dialogue error");
 	}
 }
-void getSceneName(int sceneNum)
+char * getSceneName(int sceneNum)
 {
 	switch (sceneNum)
 	{
@@ -62,7 +62,7 @@ void getSceneName(int sceneNum)
 			printf("Scene name error");
 	}
 }
-void getNextScene(int sceneNum, int yes)
+int getNextScene(int sceneNum, int yes)
 {
 	switch (sceneNum)
 	{
@@ -89,7 +89,7 @@ void getNextScene(int sceneNum, int yes)
 			{
 				return 3;
 			}
-			else:
+			else
 			{
 				return 4;
 			}
@@ -113,7 +113,6 @@ void getNextScene(int sceneNum, int yes)
 			}
 		case 5:
 			return 0;
-		case
 	}
 }
 //Include question in dialogue

@@ -1,10 +1,9 @@
 #include "address_map_nios2.h"
 #include <stdio.h>
 #include <math.h>
-#include <display.c>
-#include <scenes.c>
-int getChoice(int maxVal);
-int showScene(int nextSceneVal);
+//#include <display.c>
+//#include <scenes.c>
+#include "head.h"
 
 int main(void)
 {
@@ -29,13 +28,13 @@ int main(void)
 }
 int showScene(int nextSceneVal) //currently, one scene holds one box of dialogue
 {
-	char text[100] = getDialogue(nextSceneVal);
+	char * text = getDialogue(nextSceneVal);
 	int bgc = getBGC(nextSceneVal);
 	
 	colorScreen(bgc);
 	drawDialogueBox();
 	displayDialogue(text);
-	displayQuestion(question);//TODO
+	//displayQuestion(question);//TODO
 	return getChoice(1);//Can I return the next scene number instead?
 }
 int getChoice(int maxVal)
@@ -45,4 +44,21 @@ int getChoice(int maxVal)
 	return getYesOrNo();//TODO
 	
 	//return -1;
+}
+int getYesOrNo()
+{
+	//press 3 for yes, 2 for no
+	volatile int * buttonPtr = (int *) KEY_BASE;
+	while (1)
+	{
+		int buttonVal = *buttonPtr;
+		if (buttonVal == 8)
+		{
+			return 1;
+		}
+		if (buttonVal == 4)
+		{
+			return 0;
+		}
+	}
 }

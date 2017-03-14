@@ -1,11 +1,6 @@
-void drawDialogueBox();
-void drawImageBox();
-void drawPixel(int row, int col, short color);
-void colorArea(int startRow, int endRow, int startCol, int endCol, short color);
-void colorScreen(short color);
-void clearScreen();
-void displayDialogue(char * text_ptr);
-void displayChar(int row, int col, char c);
+#include "address_map_nios2.h"
+
+#include "head.h"
 int sWidth=300;//319. Width is columns. Cols go left to right.
 int sHeight=200;//239. Height is rows. Rows go up to down.
 int sTrueWidth=320;
