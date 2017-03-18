@@ -7,19 +7,64 @@ int sTrueWidth=320;
 int sTrueHeight=240;
 int generalStartCol = 5;
 int generalEndCol = 295;//sWidth-5
+short black = 0x0000;
 short pink = 0xF00F;
 short green = 0x0FF0;
 short blue = 0x00FF;
 short red = 0xF000;
+short white = 0xFFFF;//I THINK
 
-void drawEntity()
+
+void colorArea(int startRow, int endRow, int startCol, int endCol, short color)
+{
+	for (int currentRow=startRow;currentRow<endRow;currentRow++)
+	{
+		for (int currentCol=startCol;currentCol<endCol;currentCol++)
+		{
+			drawPixel(currentRow,currentCol,color);
+		}
+	}
+}
+void drawEntityBox()
 {
 	int startRow = 5;
 	int endRow = sHeight-55;
 	int startCol = generalStartCol;
 	int endCol = generalEndCol;
 	colorArea(startRow,endRow,startCol,endCol,green);
-	
+}
+void drawEntity(int mood)
+{
+	//Note: Center row is 75, center col is 150
+	drawEntityBox();
+	switch (mood)
+	{
+		case 0: //neutral
+			return;
+		case 1: //happy
+			//draw happy face
+			return;
+		case 2: //angry
+			return;
+		case 3: //curious
+			//draw question mark
+			//r[
+			colorArea(30,50,120,130,white);
+			colorArea(15,30,130,160,white);
+			colorArea(30,90,160,170,white);
+			colorArea(90,100,140,165,white);
+			colorArea(100,120,140,150,white);
+			colorArea(125,135,140,150,white);
+			return;
+		case 4: //right and wrong
+			//draw yingyang
+			return;
+		case 5: //content, probably for successes
+			//draw peace symbol
+			return;
+		default:
+			return;
+	}
 }
 void drawDialogueBox()
 {
@@ -37,16 +82,7 @@ void drawPixel(int row,int col,short color)
 	*pixel_address = color;
 }
 
-void colorArea(int startRow, int endRow, int startCol, int endCol, short color)
-{
-	for (int currentRow=startRow;currentRow<endRow;currentRow++)
-	{
-		for (int currentCol=startCol;currentCol<endCol;currentCol++)
-		{
-			drawPixel(currentRow,currentCol,color);
-		}
-	}
-}
+
 void colorScreen(short color)
 {
 	colorArea(0,sHeight,0,sWidth,color);

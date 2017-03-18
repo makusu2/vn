@@ -15,4 +15,5 @@ char * getSceneName(int sceneNum);
 int getNextScene(int sceneNum, int yes);
 void pause(volatile int val);
 void clearDialogue();
-void drawEntity();
+void drawEntity(int mood);
+void drawEntityBox();
