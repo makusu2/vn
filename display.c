@@ -12,7 +12,7 @@ short pink = 0xF00F;
 short green = 0x0FF0;
 short blue = 0x00FF;
 short red = 0xF000;
-short white = 0xFFFF;//I THINK
+short white = 0xFFFF;
 
 
 void colorArea(int startRow, int endRow, int startCol, int endCol, short color)
@@ -22,6 +22,65 @@ void colorArea(int startRow, int endRow, int startCol, int endCol, short color)
 		for (int currentCol=startCol;currentCol<endCol;currentCol++)
 		{
 			drawPixel(currentRow,currentCol,color);
+		}
+	}
+}
+void colorLine(int startRow, int endRow, int startCol, int endCol, short color)
+{
+	int slopesUp = (startRow>endRow);
+	if (startCol == endCol)
+	{
+		int currentRow = startRow;
+		int currentCol = startCol;
+		while (currentRow<=endRow)
+		{
+			drawPixel(currentRow,currentCol,color);
+			currentRow++;
+		}
+	}
+	else if (startRow == endRow)
+	{
+		int currentRow = startRow;
+		int currentCol = startCol;
+		while (currentCol<=endCol)
+		{
+			drawPixel(currentRow,currentCol,color);
+			currentCol++;
+		}
+	}
+	else
+	{
+		int dRow = endRow-startRow;
+		int dCol = endCol-startCol;
+		//if (slopesUp)
+		//{
+		//	dRow = -dRow;
+		//}
+		float invSlope = (float)dRow/(float)dCol;
+		int currentRow = startRow;
+		int currentCol = startCol;
+		//So, we want to at least one pixel on every row/col
+		if (invSlope>1)
+		{
+			float floatCol = (float)currentCol;
+			while (((!slopesUp) & (currentRow<=endRow)) | (slopesUp & (currentRow>=endRow)))
+			{
+				drawPixel(currentRow,currentCol,color);
+				currentRow++;
+				floatCol+=1/invSlope;
+				currentCol = (int)floatCol;
+			}
+		}
+		else
+		{
+			float floatRow = (float)currentRow;
+			while (currentCol<=endCol)
+			{
+				drawPixel(currentRow,currentCol,color);
+				currentCol++;
+				floatRow+=invSlope;
+				currentRow = (int)floatRow;
+			}
 		}
 	}
 }
@@ -61,6 +120,9 @@ void drawEntity(int mood)
 			return;
 		case 5: //content, probably for successes
 			//draw peace symbol
+			colorLine(20,70,100,150,blue);
+			colorLine(70,20,150,200,blue);
+			colorLine(70,110,150,150,blue);
 			return;
 		default:
 			return;
