@@ -112,7 +112,7 @@ int getNextScene(int sceneNum, int yes)
 		case 12: return 1;
 		case 13: return 1;
 		case 14: return (yes)?15:16;
-		case 15: return (yes)?16:11;
+		case 15: return (yes)?11:16;
 		case 16: return 17; //THIS SHOULD HAVE A 'NO' OPTION
 		case 17: return (yes)?6:19;
 		case 18: return (yes)?6:19;

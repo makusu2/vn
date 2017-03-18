@@ -30,6 +30,12 @@ void drawEntity(int mood)
 	switch (mood)
 	{
 		case 0: //neutral
+			//draw interesting lines
+			colorLine(38,38,40,110,white);
+			colorLine(43,43,190,260,white);
+			colorLine(70,70,60,190,white);
+			colorLine(100,100,200,290,white);
+			colorLine(130,130,45,125,white);
 			return;
 		case 1: //happy
 			//draw happy face
@@ -57,6 +63,15 @@ void drawEntity(int mood)
 			return;
 		case 4: //right and wrong
 			//draw yingyang
+			//cols 80 to 200
+			//rows 10 to 130, so minibox size of 60
+			//140 in middle, so white goes from 80 to 110
+			colorArea(10,130,80,110,white);
+			colorArea(10,130,170,200,black);
+			colorArea(10,70,110,170,white);
+			colorArea(70,130,110,170,black);
+			colorArea(25,55,125,155,black);
+			colorArea(85,115,125,155,white);
 			return;
 		case 5: //content, probably for successes
 			//draw peace symbol
