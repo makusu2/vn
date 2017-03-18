@@ -9,6 +9,34 @@ int getBGC(int sceneNum)
 		default: return 0xF000;
 	}
 }
+int getSceneMood(int sceneNum)
+{
+	//0 neutral, 1 happy, 2 angry, 3 curious, 4 yingyang, 5 content
+	switch (sceneNum)
+	{
+		case 0: return 0;
+		case 1: return 2;
+		case 2: return 3;
+		case 3: return 4;
+		case 4: return 3;
+		case 5: return 4;
+		case 6: return 2;
+		case 7: return 3;
+		case 8: return 0;
+		case 9: return 1;
+		case 10: return 0;
+		case 11: return 2;
+		case 12: return 2;
+		case 13: return 0;
+		case 14: return 4;
+		case 15: return 4;
+		case 16: return 0;
+		case 17: return 4; //This one should be special
+		case 18: return 4;
+		case 19: return 5;
+		case 20: return 5;
+	}
+}
 char * getDialogue(int sceneNum)
 {
 	switch (sceneNum)
@@ -28,6 +56,12 @@ char * getDialogue(int sceneNum)
 		case 12: return "Then you have no right to be the only person to judge other people."; //improve this one
 		case 13: return "Neato, so they judge themselves. Bye.";//improve
 		case 14: return "Then is the person to judge them god?";
+		case 15: return "Then does God exist?";
+		case 16: return "Then no one exists to judge the person. Is that correct?";
+		case 17: return "You are implying that information can exist without ever having been created. Is that true?";
+		case 18: return "Truly? So there is a god?";
+		case 19: return "Then you have enlightened me. Thank you. You may pass.";
+		case 20: return "YOU WIN!";
 		default: return "Dialogue error";
 	}
 }
@@ -37,7 +71,7 @@ char * getSceneName(int sceneNum)
 	{
 		case 0: return "default";
 		case 1: return "gameOver";
-		case 2: return "testQuestion";
+		case 2: return "firstQuestion";
 		case 3: return "hitler";
 		case 4: return "anyGood";
 		case 5: return "noWantToTalk";
@@ -50,6 +84,12 @@ char * getSceneName(int sceneNum)
 		case 12: return "noRightToJudge";
 		case 13: return "theyJudgeThemselves";
 		case 14: return "doesGodJudgeThem";
+		case 15: return "doesGodExist";
+		case 16: return "noOneJudges";
+		case 17: return "informationExistance";
+		case 18: return "soThereIsAGod";
+		case 19: return "enlightened";
+		case 20: return "victory";
 		default: return "Scene name error";
 	}
 }
@@ -58,7 +98,7 @@ int getNextScene(int sceneNum, int yes)
 	switch (sceneNum)
 	{
 		case 0: return 1;
-		case 1: return 1;
+		case 1: return 2;
 		case 2: return (yes)?3:4;
 		case 3: return (yes)?5:6;
 		case 4: return (yes)?7:8;
@@ -71,6 +111,12 @@ int getNextScene(int sceneNum, int yes)
 		case 11: return 1;
 		case 12: return 1;
 		case 13: return 1;
-		case 14: return 0;
+		case 14: return (yes)?15:16;
+		case 15: return (yes)?16:11;
+		case 16: return 17; //THIS SHOULD HAVE A 'NO' OPTION
+		case 17: return (yes)?6:19;
+		case 18: return (yes)?6:19;
+		case 19: return 20;
+		case 20: return 2;
 	}
 }

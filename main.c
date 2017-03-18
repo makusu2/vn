@@ -27,9 +27,10 @@ int showScene(int nextSceneVal) //currently, one scene holds one box of dialogue
 {
 	char * text = getDialogue(nextSceneVal);
 	int bgc = getBGC(nextSceneVal);
+	int mood = getSceneMood(nextSceneVal);
 	
 	colorScreen(bgc);
-	drawEntity(1);
+	drawEntity(mood);
 	drawDialogueBox();
 	displayDialogue(text);
 	return getChoice(1);
