@@ -17,3 +17,4 @@ void pause(volatile int val);
 void clearDialogue();
 void drawEntity(int mood);
 void drawEntityBox();
+void colorLine(int startRow, int endRow, int startCol, int endCol, short color);

@@ -29,7 +29,7 @@ int showScene(int nextSceneVal) //currently, one scene holds one box of dialogue
 	int bgc = getBGC(nextSceneVal);
 	
 	colorScreen(bgc);
-	drawEntity(5);
+	drawEntity(1);
 	drawDialogueBox();
 	displayDialogue(text);
 	return getChoice(1);

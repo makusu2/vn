@@ -15,75 +15,6 @@ short red = 0xF000;
 short white = 0xFFFF;
 
 
-void colorArea(int startRow, int endRow, int startCol, int endCol, short color)
-{
-	for (int currentRow=startRow;currentRow<endRow;currentRow++)
-	{
-		for (int currentCol=startCol;currentCol<endCol;currentCol++)
-		{
-			drawPixel(currentRow,currentCol,color);
-		}
-	}
-}
-void colorLine(int startRow, int endRow, int startCol, int endCol, short color)
-{
-	int slopesUp = (startRow>endRow);
-	if (startCol == endCol)
-	{
-		int currentRow = startRow;
-		int currentCol = startCol;
-		while (currentRow<=endRow)
-		{
-			drawPixel(currentRow,currentCol,color);
-			currentRow++;
-		}
-	}
-	else if (startRow == endRow)
-	{
-		int currentRow = startRow;
-		int currentCol = startCol;
-		while (currentCol<=endCol)
-		{
-			drawPixel(currentRow,currentCol,color);
-			currentCol++;
-		}
-	}
-	else
-	{
-		int dRow = endRow-startRow;
-		int dCol = endCol-startCol;
-		//if (slopesUp)
-		//{
-		//	dRow = -dRow;
-		//}
-		float invSlope = (float)dRow/(float)dCol;
-		int currentRow = startRow;
-		int currentCol = startCol;
-		//So, we want to at least one pixel on every row/col
-		if (invSlope>1)
-		{
-			float floatCol = (float)currentCol;
-			while (((!slopesUp) & (currentRow<=endRow)) | (slopesUp & (currentRow>=endRow)))
-			{
-				drawPixel(currentRow,currentCol,color);
-				currentRow++;
-				floatCol+=1/invSlope;
-				currentCol = (int)floatCol;
-			}
-		}
-		else
-		{
-			float floatRow = (float)currentRow;
-			while (currentCol<=endCol)
-			{
-				drawPixel(currentRow,currentCol,color);
-				currentCol++;
-				floatRow+=invSlope;
-				currentRow = (int)floatRow;
-			}
-		}
-	}
-}
 void drawEntityBox()
 {
 	int startRow = 5;
@@ -102,8 +33,17 @@ void drawEntity(int mood)
 			return;
 		case 1: //happy
 			//draw happy face
+			colorArea(20,130,80,190,white);//use yellow later
+			colorArea(30,40,110,120,blue);
+			colorArea(30,40,150,160,blue);
+			colorLine(90,110,100,100,red);
+			colorLine(110,110,100,170,red);
+			colorLine(90,110,170,170,red);
 			return;
 		case 2: //angry
+			//draw red X
+			colorLine(20,130,100,200,red);
+			colorLine(130,20,100,200,red);
 			return;
 		case 3: //curious
 			//draw question mark
@@ -138,11 +78,6 @@ void drawDialogueBox()
 	colorArea(startRow,endRow,startCol,endCol,color);
 }
 
-void drawPixel(int row,int col,short color)
-{
-	volatile short * pixel_address = (volatile short *)(0x08000000 + (row<<10)+(col<<1));
-	*pixel_address = color;
-}
 
 
 void colorScreen(short color)
@@ -152,33 +87,4 @@ void colorScreen(short color)
 void clearScreen()
 {
 	colorArea(0,sTrueHeight,0,sTrueWidth,0x0000);
-}
-void displayDialogue(char * text_ptr)
-{
-	clearDialogue();
-	int startRow = 40;//was 30. I think this is unrelated to the pixel thing?
-	int startCol = 5;
-	int offset = (startRow << 7) + startCol;
-  	volatile char * character_buffer = (char *) FPGA_CHAR_BASE;	// VGA character buffer
-
-	while ( *(text_ptr) )
-	{
-		*(character_buffer + offset) = *(text_ptr);	// write to the character buffer
-		++text_ptr;
-		++offset;
-	}
-}
-void clearDialogue()
-{
-	int startRow = 40;
-	int startCol = 5;
-	int offset = (startRow << 7) + startCol;
-  	volatile char * character_buffer = (char *) FPGA_CHAR_BASE;	// VGA character buffer
-
-	for (int i=0;i<100;i++)
-	{
-		*(character_buffer + offset) = ' ';	// write to the character buffer
-		++offset;
-	}
-	
 }
