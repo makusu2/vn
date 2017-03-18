@@ -3,6 +3,7 @@
 #include <math.h>
 #include "head.h"
 
+volatile int pauseTime = 3000000;
 int main(void)
 {
 	//So, we can put variables here, in main, and use them as "objects"
@@ -18,7 +19,7 @@ int main(void)
 			previousSceneVal=currentSceneVal;
 			currentSceneVal = getNextScene(previousSceneVal,choice);
 			volatile int time = 1000000;
-			pause(time);
+			pause(pauseTime);
 		}
 	}
 }
