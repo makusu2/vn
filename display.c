@@ -5,12 +5,27 @@ int sWidth=300;//319. Width is columns. Cols go left to right.
 int sHeight=200;//239. Height is rows. Rows go up to down.
 int sTrueWidth=320;
 int sTrueHeight=240;
+int generalStartCol = 5;
+int generalEndCol = 295;//sWidth-5
+short pink = 0xF00F;
+short green = 0x0FF0;
+short blue = 0x00FF;
+short red = 0xF000;
 
+void drawEntity()
+{
+	int startRow = 5;
+	int endRow = sHeight-55;
+	int startCol = generalStartCol;
+	int endCol = generalEndCol;
+	colorArea(startRow,endRow,startCol,endCol,green);
+	
+}
 void drawDialogueBox()
 {
-	short color = 0xF00F; //Can change
-	int startRow=sHeight-100;
-	int endRow=sHeight-50;
+	short color = pink; //Can change
+	int startRow=sHeight-50;//150
+	int endRow=sHeight-10;//190
 	int startCol=5;
 	int endCol=sWidth-5;
 	colorArea(startRow,endRow,startCol,endCol,color);
@@ -43,7 +58,7 @@ void clearScreen()
 void displayDialogue(char * text_ptr)
 {
 	clearDialogue();
-	int startRow = 30;
+	int startRow = 40;//was 30. I think this is unrelated to the pixel thing?
 	int startCol = 5;
 	int offset = (startRow << 7) + startCol;
   	volatile char * character_buffer = (char *) FPGA_CHAR_BASE;	// VGA character buffer
@@ -57,7 +72,7 @@ void displayDialogue(char * text_ptr)
 }
 void clearDialogue()
 {
-	int startRow = 30;
+	int startRow = 40;
 	int startCol = 5;
 	int offset = (startRow << 7) + startCol;
   	volatile char * character_buffer = (char *) FPGA_CHAR_BASE;	// VGA character buffer
