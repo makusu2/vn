@@ -35,6 +35,9 @@ int getSceneMood(int sceneNum)
 		case 18: return 4;
 		case 19: return 5;
 		case 20: return 5;
+		case 21: return 0;
+		case 22: return 2;
+		case 23: return 2;
 	}
 }
 char * getDialogue(int sceneNum)
@@ -54,7 +57,7 @@ char * getDialogue(int sceneNum)
 		case 10: return "Then is the person themself the person who should judge themself?";
 		case 11: return "I'm an athiest. You're lying. Good-bye.";
 		case 12: return "Then you have no right to be the only person to judge other people."; //improve this one
-		case 13: return "Neato, so they judge themselves. Bye.";//improve
+		case 13: return "Hitler likely thought he was a good person. Was Hitler a good person?";
 		case 14: return "Then is the person to judge them god?";
 		case 15: return "Then does God exist?";
 		case 16: return "Then no one exists to judge the person. Is that correct?";
@@ -62,6 +65,9 @@ char * getDialogue(int sceneNum)
 		case 18: return "Truly? So there is a god?";
 		case 19: return "Then you have enlightened me. Thank you. You may pass.";
 		case 20: return "YOU WIN!";
+		case 21: return "Then explain who can judge the person.";
+		case 22: return "That is not an answer.";
+		case 23: return "A lie of omission is still a lie.";
 		default: return "Dialogue error";
 	}
 }
@@ -90,6 +96,9 @@ char * getSceneName(int sceneNum)
 		case 18: return "soThereIsAGod";
 		case 19: return "enlightened";
 		case 20: return "victory";
+		case 21: return "yesNo1";
+		case 22: return "yesNo2";
+		case 23: return "yesNo3";
 		default: return "Scene name error";
 	}
 }
@@ -110,13 +119,16 @@ int getNextScene(int sceneNum, int yes)
 		case 10: return (yes)?13:14;
 		case 11: return 1;
 		case 12: return 1;
-		case 13: return 1;
+		case 13: return (yes)?5:6;
 		case 14: return (yes)?15:16;
 		case 15: return (yes)?11:16;
-		case 16: return 17; //THIS SHOULD HAVE A 'NO' OPTION
+		case 16: return (yes)?17:21;
 		case 17: return (yes)?6:19;
 		case 18: return (yes)?6:19;
 		case 19: return 20;
 		case 20: return 2;
+		case 21: return 22;
+		case 22: return 23;
+		case 23: return 6;
 	}
 }
