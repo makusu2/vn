@@ -13,6 +13,9 @@
             <source_file filepath="true">main.c</source_file>
             <source_file filepath="true">scenes.c</source_file>
             <source_file filepath="true">display.c</source_file>
+            <source_file filepath="true">address_map_nios2.h</source_file>
+            <source_file filepath="true">deepDisplay.c</source_file>
+            <source_file filepath="true">head.h</source_file>
         </source_files>
         <options>
             <compiler_flags>-g -O1 -ffunction-sections -fverbose-asm -fno-inline -mno-cache-volatile</compiler_flags>

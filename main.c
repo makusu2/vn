@@ -3,16 +3,16 @@
 #include <math.h>
 #include "head.h"
 
-volatile int pauseTime = 3000000;
+volatile int pauseTime = 3000000;//A number which relates to the amount of time the device should allow for before allowing for another key press
 int main(void)
 {
 	//So, we can put variables here, in main, and use them as "objects"
 	int previousSceneVal = 0;//So it doesn't have to redisplay every cycle
 	int currentSceneVal = 2;
 	int gameIsOver = 0;//turn to 1 when game finishes, exiting "while" loop
-	while(!gameIsOver)
+	while(!gameIsOver) //this will always run
 	{
-		if (previousSceneVal != currentSceneVal)
+		if (previousSceneVal != currentSceneVal) //if the next scene is different
 		{
 			clearScreen();
 			int choice = showScene(currentSceneVal);

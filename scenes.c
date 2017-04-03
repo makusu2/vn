@@ -38,6 +38,10 @@ int getSceneMood(int sceneNum)
 		case 21: return 0;
 		case 22: return 2;
 		case 23: return 2;
+		case 24: return 2;
+		case 25: return 3;
+		case 26: return 2;
+		case 27: return 4;
 	}
 }
 char * getDialogue(int sceneNum)
@@ -47,27 +51,31 @@ char * getDialogue(int sceneNum)
 		case 0: return "Default dialogue";
 		case 1: return "GAME OVER";
 		case 2: return "Are all humans good?";
-		case 3: return "By that logic, Hitler was a good person. Would you agree?";
+		case 3: return "By that logic, Hitler was a good person. Would you agree? (NOTE: things get controversial after this point. Please restart if you do not wish to continue.)";
 		case 4: return "Then is any human good?";
-		case 5: return "oh. okay. I don't think I want to talk to you anymore.";
-		case 6: return "Then you've lied to me. Good-bye.";
+		case 5: return "Do you believe that the holocaust was faked?"; 
+		case 6: return "Then you've lied to me, and are unworthy of progressing. Good-bye.";
 		case 7: return "Then someone must be able to choose who is good and who is not. Are you that person?";
 		case 8: return "Wow, you're kind of a downer. Bye.";
-		case 9: return "Then you are a God. Am I correct?";
-		case 10: return "Then is the person themself the person who should judge themself?";
-		case 11: return "I'm an athiest. You're lying. Good-bye.";
-		case 12: return "Then you have no right to be the only person to judge other people."; //improve this one
+		case 9: return "Then you must be a god. Am I correct?";
+		case 10: return "Then is the person in question the person who should judge themself?";
+		case 11: return "I'm an athiest. You're lying.";
+		case 12: return "Then you have no right to be the only person to judge other people."; 
 		case 13: return "Hitler likely thought he was a good person. Was Hitler a good person?";
-		case 14: return "Then is the person to judge them god?";
+		case 14: return "Then is the person to judge them a god?";
 		case 15: return "Then does God exist?";
 		case 16: return "Then no one exists to judge the person. Is that correct?";
-		case 17: return "You are implying that information can exist without ever having been created. Is that true?";
+		case 17: return "You are implying that information can exist, and be correct, without ever having been created in this world. Is this your conjecture?";
 		case 18: return "Truly? So there is a god?";
 		case 19: return "Then you have enlightened me. Thank you. You may pass.";
 		case 20: return "YOU WIN!";
 		case 21: return "Then explain who can judge the person.";
 		case 22: return "That is not an answer.";
 		case 23: return "A lie of omission is still a lie.";
+		case 24: return "And yet you believe Hitler was a good person?";
+		case 25: return "Do you have proof of this?";
+		case 26: return "Do you have enough reason to say that Hitler was a good person?";
+		case 27: return "Then you've enlightened me, although I question your morals. You may pass.";
 		default: return "Dialogue error";
 	}
 }
@@ -80,7 +88,7 @@ char * getSceneName(int sceneNum)
 		case 2: return "firstQuestion";
 		case 3: return "hitler";
 		case 4: return "anyGood";
-		case 5: return "noWantToTalk";
+		case 5: return "holocaustFaked";
 		case 6: return "liar";
 		case 7: return "doYouDecide";
 		case 8: return "downer";
@@ -99,6 +107,10 @@ char * getSceneName(int sceneNum)
 		case 21: return "yesNo1";
 		case 22: return "yesNo2";
 		case 23: return "yesNo3";
+		case 24: return "stillHitler";
+		case 25: return "doYouHaveProof";
+		case 26: return "enoughReason";
+		case 27: return "moralEnlightenment";
 		default: return "Scene name error";
 	}
 }
@@ -111,13 +123,13 @@ int getNextScene(int sceneNum, int yes)
 		case 2: return (yes)?3:4;
 		case 3: return (yes)?5:6;
 		case 4: return (yes)?7:8;
-		case 5: return 1;
+		case 5: return (yes)?25:24;
 		case 6: return 1;
 		case 7: return (yes)?9:10;
 		case 8: return 1;
 		case 9: return (yes)?11:12;
 		case 10: return (yes)?13:14;
-		case 11: return 1;
+		case 11: return (yes)?6:18;
 		case 12: return 1;
 		case 13: return (yes)?5:6;
 		case 14: return (yes)?15:16;
@@ -130,5 +142,9 @@ int getNextScene(int sceneNum, int yes)
 		case 21: return 22;
 		case 22: return 23;
 		case 23: return 6;
+		case 24: return (yes)?27:6;
+		case 25: return (yes)?27:26;
+		case 26: return (yes)?27:6;
+		case 27: return 20;
 	}
 }
