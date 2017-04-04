@@ -13,20 +13,21 @@ short green = 0x0FF0;
 short blue = 0x00FF;
 short red = 0xF000;
 short white = 0xFFFF;
-
+//The colors represent the values which the VGI connector will use to display color
 
 void drawEntityBox()
 {
-	int startRow = 5;
-	int endRow = sHeight-55;
-	int startCol = generalStartCol;
-	int endCol = generalEndCol;
-	colorArea(startRow,endRow,startCol,endCol,green);
+	int startRow = 5; //Where the entity's start row is
+	int endRow = sHeight-55; //Where the entity's end row is
+	int startCol = generalStartCol; //Where the entity's start column is
+	int endCol = generalEndCol; //Where the entity's end column is
+	colorArea(startRow,endRow,startCol,endCol,green); //Color the area that will hold the entity
 }
 void drawEntity(int mood)
 {
 	//Note: Center row is 75, center col is 150
 	drawEntityBox();
+	int colors[6] = {black,pink,green,blue,red,white};
 	switch (mood)
 	{
 		case 0: //neutral
@@ -39,12 +40,33 @@ void drawEntity(int mood)
 			return;
 		case 1: //happy
 			//draw happy face
-			colorArea(20,130,80,190,white);//use yellow later
-			colorArea(30,40,110,120,blue);
-			colorArea(30,40,150,160,blue);
-			colorLine(90,110,100,100,red);
-			colorLine(110,110,100,170,red);
-			colorLine(90,110,170,170,red);
+			//No, draw interesting
+			//First do the weird thing
+			for (int col=0;col<sWidth;col++)
+			{
+				for (int row=0;row<sHeight;row++)
+				{
+					int index = rand()%7;
+					int randColor = colors[index];
+					drawPixel(row,col,randColor);
+				}
+			}
+			int randIndex = rand()%7;
+			
+			
+			
+			colorArea(30,130,190,300,black);
+			colorArea(40,120,180,290,white);
+			colorArea(50,110,170,280,red);
+			colorArea(60,100,160,270,blue);
+			colorArea(70,90,150,260,green);
+			colorArea(75,85,140,250,pink);
+			//colorArea(20,130,80,190,white);//use yellow later
+			//colorArea(30,40,110,120,blue);
+			//colorArea(30,40,150,160,blue);
+			//colorLine(90,110,100,100,red);
+			//colorLine(110,110,100,170,red);
+			//colorLine(90,110,170,170,red);
 			return;
 		case 2: //angry
 			//draw red X
@@ -53,7 +75,6 @@ void drawEntity(int mood)
 			return;
 		case 3: //curious
 			//draw question mark
-			//r[
 			colorArea(30,50,120,130,white);
 			colorArea(15,30,130,160,white);
 			colorArea(30,90,160,170,white);
@@ -83,7 +104,7 @@ void drawEntity(int mood)
 			return;
 	}
 }
-void drawDialogueBox()
+void drawDialogueBox() //Draws a colored box to prepare for dialogue
 {
 	short color = pink; //Can change
 	int startRow=sHeight-50;//150

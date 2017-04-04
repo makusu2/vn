@@ -12,44 +12,45 @@ int main(void)
 	int gameIsOver = 0;//turn to 1 when game finishes, exiting "while" loop
 	while(!gameIsOver) //this will always run
 	{
-		if (previousSceneVal != currentSceneVal) //if the next scene is different
+		if (previousSceneVal != currentSceneVal) //if the next scene is the same, just loop again
 		{
-			clearScreen();
-			int choice = showScene(currentSceneVal);
-			previousSceneVal=currentSceneVal;
-			currentSceneVal = getNextScene(previousSceneVal,choice);
-			volatile int time = 1000000;
-			pause(pauseTime);
+			clearScreen(); //set all pixels to the same color
+			int choice = showScene(currentSceneVal); //this method both updates the screen and returns the user's choice
+			previousSceneVal=currentSceneVal; //this method is so that the game recognizes the current scene
+			currentSceneVal = getNextScene(previousSceneVal,choice); //This updates the scene based on the user's choice
+			volatile int time = 1000000; //This is for a shorter break between button presses
+			pause(pauseTime); //This pauses the game for a mostly unnoticeable time, but enough for the user to press and release the button
 		}
 	}
 }
-int showScene(int nextSceneVal) //currently, one scene holds one box of dialogue
+int showScene(int nextSceneVal) //one scene holds one box of dialogue
 {
-	char * text = getDialogue(nextSceneVal);
-	int bgc = getBGC(nextSceneVal);
-	int mood = getSceneMood(nextSceneVal);
+	char * text = getDialogue(nextSceneVal); //this gets the appropriate dialogue
+	int bgc = getBGC(nextSceneVal); //This gets the background color
+	int mood = getSceneMood(nextSceneVal); //This gets the mood for the scene; the entity image
 	
-	colorScreen(bgc);
-	drawEntity(mood);
-	drawDialogueBox();
-	displayDialogue(text);
-	return getChoice(1);
+	colorScreen(bgc); //this colors the screen
+	drawEntity(mood); //This draws the image of the entity
+	drawDialogueBox(); //This draws the dialogue box, in which the dialogue goes
+	displayDialogue(text); //This puts the dialogue where it should go
+	return getChoice(1); //This returns the user's choice
 }
-int getChoice(int maxVal)
+int getChoice(int maxVal)//This is a method that simply holds another method; however, this way, it can be easily changed.
 {
 	return getYesOrNo();
 }
-int getYesOrNo()
+int getYesOrNo() //This is a method for getting two options; yes or no.
 {
 	//press 3 for yes, 2 for no
-	volatile int * buttonPtr = (int *) KEY_BASE;
-	while (1)
+	volatile int * buttonPtr = (int *) KEY_BASE; //getting ready for the button press
+	while (1) //while the user has yet to do anything
 	{
-		switch (*buttonPtr)
+		switch (*buttonPtr) //this looks at the value currently being pressed
 		{
-			case 8: return 1;
-			case 4: return 0;
-			default: continue;
+			case 8: return 1; //If the user is pressing button 3, return "yes" as a value
+			case 4: return 0; //If the user is pressing button 2, return "no" as a value
+			case 1: return main();
+			default: continue; //If the user is not pressing anything, simply run the loop again
 		}
 		/*
 		int buttonVal = *buttonPtr;
@@ -64,7 +65,7 @@ int getYesOrNo()
 		*/
 	}
 }
-void pause(volatile int val)
+void pause(volatile int val) //This method only serves to pause the code, to give the user time to lift their finger from the button
 {
 	for (int i=0;i<val;i++)
 	{

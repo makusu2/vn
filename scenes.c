@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include "head.h"
+#include <time.h>
+#include <stdlib.h>
 int getBGC(int sceneNum)
 {
 	switch (sceneNum)
@@ -16,7 +18,7 @@ int getSceneMood(int sceneNum)
 	{
 		case 0: return 0;
 		case 1: return 2;
-		case 2: return 3;
+		case 2: return 1;
 		case 3: return 4;
 		case 4: return 3;
 		case 5: return 4;
@@ -31,7 +33,7 @@ int getSceneMood(int sceneNum)
 		case 14: return 4;
 		case 15: return 4;
 		case 16: return 0;
-		case 17: return 4; //This one should be special
+		case 17: return 1; //This one should be special
 		case 18: return 4;
 		case 19: return 5;
 		case 20: return 5;
@@ -51,9 +53,9 @@ char * getDialogue(int sceneNum)
 		case 0: return "Default dialogue";
 		case 1: return "GAME OVER";
 		case 2: return "Are all humans good?";
-		case 3: return "By that logic, Hitler was a good person. Would you agree? (NOTE: things get controversial after this point. Please restart if you do not wish to continue.)";
+		case 3: return "By that logic, someone who has killed eleven million people was a good person. Would you agree?";
 		case 4: return "Then is any human good?";
-		case 5: return "Do you believe that the holocaust was faked?"; 
+		case 5: return "Do you believe that someone who has committed such an act felt that they were doing a good thing?"; 
 		case 6: return "Then you've lied to me, and are unworthy of progressing. Good-bye.";
 		case 7: return "Then someone must be able to choose who is good and who is not. Are you that person?";
 		case 8: return "Wow, you're kind of a downer. Bye.";
@@ -61,7 +63,7 @@ char * getDialogue(int sceneNum)
 		case 10: return "Then is the person in question the person who should judge themself?";
 		case 11: return "I'm an athiest. You're lying.";
 		case 12: return "Then you have no right to be the only person to judge other people."; 
-		case 13: return "Hitler likely thought he was a good person. Was Hitler a good person?";
+		case 13: return "Someone who has killed eleven million people likely thought that they were a good person. Were they?";
 		case 14: return "Then is the person to judge them a god?";
 		case 15: return "Then does God exist?";
 		case 16: return "Then no one exists to judge the person. Is that correct?";
@@ -72,9 +74,9 @@ char * getDialogue(int sceneNum)
 		case 21: return "Then explain who can judge the person.";
 		case 22: return "That is not an answer.";
 		case 23: return "A lie of omission is still a lie.";
-		case 24: return "And yet you believe Hitler was a good person?";
+		case 24: return "And yet you believe that a murderer is a good person?";
 		case 25: return "Do you have proof of this?";
-		case 26: return "Do you have enough reason to say that Hitler was a good person?";
+		case 26: return "Do you have enough reason to say that a murderer is a good person?";
 		case 27: return "Then you've enlightened me, although I question your morals. You may pass.";
 		default: return "Dialogue error";
 	}
