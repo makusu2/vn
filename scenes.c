@@ -138,7 +138,7 @@ int getNextScene(int sceneNum, int yes)
 		case 15: return (yes)?11:16;
 		case 16: return (yes)?17:21;
 		case 17: return (yes)?6:19;
-		case 18: return (yes)?6:19;
+		case 18: return (yes)?19:6;
 		case 19: return 20;
 		case 20: return 2;
 		case 21: return 22;

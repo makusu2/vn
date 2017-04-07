@@ -45,6 +45,18 @@ int getYesOrNo() //This is a method for getting two options; yes or no.
 	volatile int * buttonPtr = (int *) KEY_BASE; //getting ready for the button press
 	while (1) //while the user has yet to do anything
 	{
+		int possibleChoice = wobble();
+		if (possibleChoice != 0)
+		{
+			
+			switch (possibleChoice) //this looks at the value currently being pressed
+			{
+				case 8: return 1; //If the user is pressing button 3, return "yes" as a value
+				case 4: return 0; //If the user is pressing button 2, return "no" as a value
+				case 1: return main();
+				default: continue; //If the user is not pressing anything, simply run the loop again
+			}
+		}
 		switch (*buttonPtr) //this looks at the value currently being pressed
 		{
 			case 8: return 1; //If the user is pressing button 3, return "yes" as a value

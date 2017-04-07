@@ -1,6 +1,8 @@
 #include "address_map_nios2.h"
-
+#include <time.h>
+#include <stdlib.h>
 #include "head.h"
+#include <stdio.h>
 int sWidth=300;//319. Width is columns. Cols go left to right.
 int sHeight=200;//239. Height is rows. Rows go up to down.
 int sTrueWidth=320;
@@ -42,15 +44,16 @@ void drawEntity(int mood)
 			//draw happy face
 			//No, draw interesting
 			//First do the weird thing
-			for (int col=0;col<sWidth;col++)
+			for (int col=generalStartCol;col<generalEndCol;col++)
 			{
-				for (int row=0;row<sHeight;row++)
+				for (int row=5;row<sHeight-55;row++)
 				{
 					int index = rand()%7;
 					int randColor = colors[index];
 					drawPixel(row,col,randColor);
 				}
 			}
+			srand(time(NULL)); 
 			int randIndex = rand()%7;
 			
 			
@@ -123,4 +126,84 @@ void colorScreen(short color)
 void clearScreen()
 {
 	colorArea(0,sTrueHeight,0,sTrueWidth,0x0000);
+}
+int wobble()
+{
+	int charStartRow = 40;
+	int charStartCol = 5;
+	volatile char * character_buffer = (char *) FPGA_CHAR_BASE;	// VGA character buffer
+	//int origOffset = (charStartRow << 7) + charStartCol;
+	//volatile char * origCharacter_buffer = (char *) FPGA_CHAR_BASE;	// VGA character buffer
+	int originalChar[46][56] = {};
+	for (int row=charStartRow;row<charStartRow+5;row++)
+	{
+		for (int col=charStartCol;col<charStartCol+51;col++)
+		{
+			int origOffset = (row << 7) + col;
+			//++origOffset;
+			//printf("Val: %d\n",*(character_buffer + origOffset));
+			originalChar[row][col] = *(character_buffer + origOffset);
+			//printf("originalChar: %d\n",originalChar[row][col]);
+		}
+	}
+	while (1) //This is new
+	{
+		int startRow = 5; //Where the entity's start row is
+		int endRow = sHeight-55; //Where the entity's end row is
+		int startCol = generalStartCol; //Where the entity's start column is
+		int endCol = generalEndCol; //Where the entity's end column is
+		//printf("First");
+		volatile int * buttonPtr = (int *) KEY_BASE; //getting ready for the button press
+		for (int i=0;i<10;i++)
+		{
+			int col = rand()%(endCol-startCol);
+			int row = rand()%(endRow-startRow);
+			int rowDif = (rand()%2)-(rand()%2);
+			int colDif = (rand()%2)-(rand()%2);
+			
+			short colorAbove = getPixel(row+rowDif,col+colDif);
+			drawPixel(row,col,colorAbove);
+			
+			
+			switch (*buttonPtr) //this looks at the value currently being pressed
+			{
+				case 8: return 8; //If the user is pressing button 3, return "yes" as a value
+				case 4: return 4; //If the user is pressing button 2, return "no" as a value
+				case 1: return 1;
+				default: continue; //If the user is not pressing anything, simply run the loop again
+			}
+			
+		}
+		
+		
+		
+		//int charStartRow = 40;//was 30. I think this is unrelated to the pixel thing?
+		//int charStartCol = 5;
+		//int charInt = *(character_buffer + offset);
+		for (int row=charStartRow;row<charStartRow+4;row++)
+		{
+			for (int col=charStartCol;col<charStartCol+50;col++)
+			{
+				int offset = (row << 7) + col;
+				
+				//++offset;
+				int dontDoIt = rand()%10;
+				if (dontDoIt || (*(character_buffer + offset) == ' '))
+				{
+					continue;
+				}
+				int toOrig = rand()%100;
+				if (toOrig)
+				{
+					*(character_buffer + offset) = originalChar[row][col];
+				}
+				else
+				{
+					*(character_buffer + offset) = (rand()%123)+128;
+				}
+			}
+		}
+	}
+	
+	return 0;
 }

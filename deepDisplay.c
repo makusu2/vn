@@ -78,6 +78,11 @@ void drawPixel(int row,int col,short color) //The very general method for decidi
 	volatile short * pixel_address = (volatile short *)(0x08000000 + (row<<10)+(col<<1));
 	*pixel_address = color;
 }
+short getPixel(int row, int col)
+{
+	volatile short * pixel_address = (volatile short *)(0x08000000 + (row<<10)+(col<<1));
+	return *pixel_address;
+}
 void displayDialogue(char * text_ptr)
 {
 	clearDialogue(); //removes dialogue already there
@@ -87,7 +92,7 @@ void displayDialogue(char * text_ptr)
   	volatile char * character_buffer = (char *) FPGA_CHAR_BASE;	// VGA character buffer
 	int charCounter = 0;
 	int readyForNewLine = 0;
-	volatile int pauseTime = 300000;
+	volatile int pauseTime = 30000;
 	while ( *(text_ptr) ) //while there is still dialogue left in the array
 	{
 		pause(pauseTime);
